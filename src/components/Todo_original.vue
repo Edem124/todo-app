@@ -63,32 +63,50 @@
   let editingTask = null;
 
   const addTask = () => {
-    if (newTask.value.trim() !== '') {
-      if (editingTask) {
+    if (newTask.value.trim() !== '') {// vérifie si newtask n'est pas une chaîne vide 
+      if (editingTask) {//vérifie si la variable  editingTask est définie, ce qui signifie que l'utilisateur est actuellement en mode d'édition d'une tâche existante.
         
-        editingTask.text = newTask.value;
-        editingTask = null;
+        editingTask.text = newTask.value;//met à jour le texte de la tâche en cours d'édition avec la valeur actuelle de newTask
+        editingTask = null;//réinitialise la variable editingTask à null, ce qui signifie que l'utilisateur n'est plus en mode édition
       } else {
         
-        tasks.value.push({ id: Date.now(), text: newTask.value, checked: false });
+        tasks.value.push({ id: Date.now(), text: newTask.value, checked: false });//ajoute une nouvelle tâche à
+        // la liste des tâches (tasks). Elle crée un nouvel objet de tâche avec trois propriétés
       }
-      newTask.value = '';
+      newTask.value = '';//réinitialise la valeur de newTask à une chaîne vide
     }
   };
 
   const removeTask = (taskToRemove) => {
-    const index = tasks.value.findIndex(task => task.id === taskToRemove.id);
-    if (index !== -1) {
-      tasks.value.splice(index, 1);
+    const index = tasks.value.findIndex(task => task.id === taskToRemove.id);// Cette ligne utilise la méthode
+    // findIndex sur le tableau réactif tasks pour rechercher l'indice de la tâche à supprimer.Elle prend en 
+    //argument une fonction de rappel qui est exécutée pour chaque élément du tableau tasks. Cette fonction de
+    // rappel vérifie si l'id de la tâche actuelle correspond à l'id de la tâche à supprimer (taskToRemove.id).
+    //Si une correspondance est trouvée, findIndex renvoie l'indice de cette tâche dans le tableau, sinon, il renvoie -1.
+
+    if (index !== -1) { //Cette ligne vérifie si index est différent de -1, ce qui signifie qu'une tâche avec
+    // l'id correspondant à taskToRemove.id a été trouvée dans le tableau tasks.
+
+      tasks.value.splice(index, 1);// Si une tâche correspondante a été trouvée, cette ligne utilise la méthode
+      // splice pour supprimer un élément du tableau tasks. L'indice de l'élément à supprimer est index, et le
+      // 1 indique combien d'éléments doivent être supprimés à partir de cet indice. Dans ce cas, nous supprimons une seule tâche à l'indice trouvé
     }
   };
 
   const toggleTask = (task) => {
-    task.checked = !task.checked;
+    task.checked = !task.checked;//Cette ligne inverse l'état de la propriété checked de l'objet task passé en
+    //tant qu'argument à la fonction. La propriété checked est utilisée pour déterminer si la tâche est cochée ou non
   };
 
   const editTask = (taskToEdit) => {
-    editingTask = taskToEdit;
-    newTask.value = taskToEdit.text; 
+    editingTask = taskToEdit;//Cette ligne attribue la valeur de la variable réactive taskToEdit à la variable 
+    //réactive editingTask. Cela signifie que la tâche que l'utilisateur souhaite éditer (passée en tant 
+    //qu'argument à la fonction) devient la tâche actuellement en cours d'édition. La variable editingTask 
+    //est utilisée pour suivre la tâche en cours d'édition.
+
+    newTask.value = taskToEdit.text; //Cette ligne attribue le texte de la tâche à éditer (taskToEdit.text) à 
+    //la variable réactive newTask. Cela remplit le champ de saisie avec le texte de la tâche que l'utilisateur
+    // souhaite éditer. En d'autres termes, le champ de saisie est prérempli avec le texte de la tâche en cours
+    // d'édition pour permettre à l'utilisateur de le modifier.
   };
 </script>
