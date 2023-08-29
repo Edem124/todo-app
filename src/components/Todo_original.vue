@@ -77,13 +77,14 @@
     }
   };
 
-  const removeTask = (taskToRemove) => {
-    const index = tasks.value.findIndex(task => task.id === taskToRemove.id);
-
-    if (index !== -1) { 
-
-      tasks.value.splice(index, 1);
-    }
+  function removeTask(taskToRemove) {
+   // const index = tasks.value.filter(task => task.id !== taskToRemove.id);
+   // const index = tasks.value.filter(task => { 
+   // return task.id !== taskToRemove.id
+ // });
+    const index = tasks.value.filter(function (t) {
+        return t.id !== taskToRemove.id
+    });
   };
 
   const toggleTask = (task) => {
@@ -91,14 +92,7 @@
   };
 
   const editTask = (taskToEdit) => {
-    editingTask = taskToEdit;//Cette ligne attribue la valeur de la variable réactive taskToEdit à la variable 
-    //réactive editingTask. Cela signifie que la tâche que l'utilisateur souhaite éditer (passée en tant 
-    //qu'argument à la fonction) devient la tâche actuellement en cours d'édition. La variable editingTask 
-    //est utilisée pour suivre la tâche en cours d'édition.
-
-    newTask.value = taskToEdit.text; //Cette ligne attribue le texte de la tâche à éditer (taskToEdit.text) à 
-    //la variable réactive newTask. Cela remplit le champ de saisie avec le texte de la tâche que l'utilisateur
-    // souhaite éditer. En d'autres termes, le champ de saisie est prérempli avec le texte de la tâche en cours
-    // d'édition pour permettre à l'utilisateur de le modifier.
-  };
+    editingTask = taskToEdit;
+    newTask.value = taskToEdit.text; 
+  }
 </script>
