@@ -1,11 +1,11 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import Todo from './components/Todo.vue';
+
+import Todo_original from './components/Todo_original.vue';
 import 'tailwindcss/tailwind.css'
 </script>
 
 <template>
-  <Todo/>
+  <Todo_original/>
  
 </template>
 

@@ -56,11 +56,7 @@
     data() {
         return {
         newTask: '',
-        tasks: [
-            { id: 1, text: 'Trim the verge.', checked: true },
-            { id: 2, text: 'La bouffe.', checked: true },
-            { id: 3, text: 'Alléluia.', checked: true },
-        ],
+        tasks: [],
         editingTask: null,
         editedTask: '',
         };
