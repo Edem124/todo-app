@@ -1,12 +1,12 @@
 <script setup>
 
-import Todo_original from './components/Todo_original.vue';
-import 'tailwindcss/tailwind.css'
+
 </script>
 
-<template>
-  <Todo_original/>
- 
+<template> 
+  <div id="app">
+    <router-view ></router-view >
+  </div>
 </template>
 
 <style scoped>
