@@ -8,22 +8,64 @@
         confirm_password: '',
         terms:false,
     });
+    const errorMessages = ref({
+        emailError: '',
+        passwordError: '',
+        confirmPasswordError: '',
+        termsError: '',
+    });
 
     const submitForm = () => {
-        const { email, password, confirm_password, terms} = formData.value;
+        const { email, password, confirm_password, terms } = formData.value;
+         // Réinitialiser les messages d'erreur
+        errorMessages.value = {
+            emailError: '',
+            passwordError: '',
+            confirmPasswordError: '',
+            termsError: '',
+        };
+
+        let hasError = false;
+        
+        if (!email.trim()) {
+            errorMessages.value.emailError = 'Email is required';
+            hasError = true;
+        }
+
+        if (!password.trim()) {
+            errorMessages.value.passwordError = 'Password is required';
+            hasError = true;
+        }
+
+        if (!confirm_password.trim()) {
+            errorMessages.value.confirmPasswordError = 'Confirm Password is required';
+            hasError = true;
+        }
 
         
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirm_password);
-        console.log('Terms Accepted:', terms);
+        if (password !== confirm_password) {
+            errorMessages.value.confirmPasswordError = 'Passwords do not match';
+            hasError = true;
+        }
 
-        formData.value= {
-            email: '',
-            password: '',
-            confirm_password: '',
-            terms:false,
-        };
+        
+        if (!terms) {
+            errorMessages.value.termsError = 'You must accept the Terms and Conditions';
+            hasError = true;
+        }
+
+        if (!hasError) {
+            console.log('Email:', email);
+            console.log('Password:', password);
+            console.log('Confirm Password:', confirm_password);
+            console.log('Terms Accepted:', terms);
+            formData.value= {
+                email: '',
+                password: '',
+                confirm_password: '',
+                terms: false,
+            };
+        }
     };
 </script>
 
@@ -44,14 +86,17 @@
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                             <input v-model="formData.email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" >
+                            <p v-if="errorMessages.emailError" class="text-red-500 text-sm">{{ errorMessages.emailError }}</p>
                         </div>
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
                             <input v-model="formData.password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            <p v-if="errorMessages.passwordError" class="text-red-500 text-sm">{{ errorMessages.passwordError }}</p>
                         </div>
                         <div>
                             <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                             <input v-model="formData.confirm_password" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            <p v-if="errorMessages.confirmPasswordError" class="text-red-500 text-sm">{{ errorMessages.confirmPasswordError }}</p>
                         </div>
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
@@ -61,11 +106,15 @@
                                 <label for="newsletter" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
                             </div>
                         </div>
+                        <p v-if="errorMessages.termsError" class="text-red-500 text-sm">{{ errorMessages.termsError }}</p>
                         <button type="submit" class="w-full text-white  bg-blue-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
                     </form>
                 </div>
             </div>
         </section>
     </div>
+
+
+                
     
 </template>

@@ -1,4 +1,23 @@
 <template>
+  <nav class="bg-gray-100">
+            <div class="max-w-6xl mx-auto px-8">
+                    <div class="flex justify-between">
+                        <div class="flex space-x-4">
+                            <router-link class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900" to="/">
+                              <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                              </svg>
+                              <span class="font-bold">EdemDev</span>
+                            </router-link >
+                        </div>
+                        
+                        <div class="hidden md:flex items-center space-x-1">
+                            <router-link class="py-2 px-3 bg-blue-400 hover:bg-blue-300 text-white-900 hover:text-blue-800 rounded shadow transition duration-300" to="/login">Logout</router-link>
+                        </div>
+                        
+                    </div>
+            </div>
+  </nav>
   <div class="flex items-center justify-center w-screen h-screen font-medium">
     <div class="flex flex-grow items-center justify-center bg-gray-900 h-full">
       <div class="max-w-full p-8 bg-gray-800 rounded-lg shadow-lg w-96 text-gray-200">

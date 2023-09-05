@@ -1,25 +1,47 @@
 <script setup>
 
     import { ref , reactive } from 'vue';
-
-    const formData = reactive({
+    import { useRouter } from 'vue-router';
+    const formData = ref({
         email: '',
         password: '',
-        terms: false,
-    });
-
-    const submitForm = () => {
-        const { email, password, terms } = formData;
-
         
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Terms Accepted:', terms);
-        formData= {
-            email: '',
-            password: '',
-            terms: false,
+    });
+    const errorMessages = ref({
+        emailError: '',
+        passwordError: '',
+        
+    });
+    const router = useRouter();
+    const submitForm = () => {
+        const { email, password,  terms } = formData.value;
+         // Réinitialiser les messages d'erreur
+        errorMessages.value = {
+            emailError: '',
+            passwordError: '',
         };
+
+        let hasError = false;
+        
+        if (!email.trim()) {
+            errorMessages.value.emailError = 'Email is required';
+            hasError = true;
+        }
+
+        if (!password.trim()) {
+            errorMessages.value.passwordError = 'Password is required';
+            hasError = true;
+        }
+
+        if (!hasError) {
+            console.log('Email:', email);
+            console.log('Password:', password);
+            formData.value= {
+                email: '',
+                password: '',
+            };
+            router.push('/todo');
+        }
     };
 </script>
 
@@ -40,10 +62,12 @@
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                 <input v-model="formData.email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" >
+                                <p v-if="errorMessages.emailError" class="text-red-500 text-sm">{{ errorMessages.emailError }}</p>
                             </div>
                             <div>
                                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input v-model="formData.password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                                <p v-if="errorMessages.passwordError" class="text-red-500 text-sm">{{ errorMessages.passwordError }}</p>
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-start">
