@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 
-import Register from './components/Register.vue';
-import Forgot from './components/Forgot.vue';
-import Home from './components/Home.vue';
-import Login from './components/Login.vue';
-import About from './components/About.vue';
-import NotFound from './components/NotFound.vue';
+import Register from './pages/Register.vue';
+import Forgot from './pages/Forgot.vue';
+import Email from './pages/Email.vue';
+import Home from './pages/Home.vue';
+import Login from './pages/Login.vue';
+import Dashboard from './pages/Dashboard.vue';
+import Profil from './pages/Profil.vue';
 
 const routes = [
   {
@@ -30,14 +31,19 @@ const routes = [
     component:Forgot ,
   },
   {
-    path:'/todo',
-    name: 'Todo',
-    component:About ,
+    path:'/email',
+    name: 'Email',
+    component:Email ,
   },
   {
-    path:'/not',
-    name: 'NotFound',
-    component:NotFound ,
+    path:'/todo',
+    name: 'Todo',
+    component:Dashboard ,
+  },
+  {
+    path:'/profil',
+    name: 'Profil',
+    component:Profil ,
   }
 
 
